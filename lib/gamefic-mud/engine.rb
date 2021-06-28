@@ -49,8 +49,7 @@ module Gamefic
             plot.ready
             @connections.each do |conn|
               next unless conn.character
-              puts ">>>#{conn.character.output[:messages]}<<<"
-              conn.send_data conn.character.output[:messages]
+              conn.send_data HtmlToAnsi.convert(conn.character.output[:messages]).gsub(/\n/, "\r\n")
             end
           end
         end
