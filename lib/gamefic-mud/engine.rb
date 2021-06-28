@@ -12,9 +12,11 @@ module Gamefic
 
       # @param plot [Plot] The game plot
       # @param start [Class<State::Base>] The initial state for new connections
-      def initialize plot, start: State::Guest
+      # @param interval [Numeric] The number of seconds between updates
+      def initialize plot, start: State::Guest, interval: 1
         @plot = plot
         @start = start
+        @interval = interval
         @web_connections = {}
         @accepts = []
         @connections = []
@@ -68,7 +70,7 @@ module Gamefic
             end
           end
 
-          EventMachine.add_periodic_timer 1 do
+          EventMachine.add_periodic_timer @interval do
             plot.update
             plot.ready
             @connections.each do |conn|
