@@ -1,5 +1,4 @@
 module Gamefic
-
   class Mud::User::WebSocket < Mud::User::Base
     def update data
       transmit data
@@ -13,5 +12,4 @@ module Gamefic
       transmit "<label class=\"prompt\">#{text}</label>"
     end
   end
-
 end

@@ -1,9 +1,6 @@
 module Gamefic
-
   module Mud::User::State
-
     class Login < Base
-
       def start
         user.prompt 'Enter your name:'
       end
@@ -16,6 +13,5 @@ module Gamefic
         user.start Mud::User::State::Play
       end
     end
-
   end
 end

@@ -1,5 +1,4 @@
 module Gamefic
-
   class Mud::User::Base < Gamefic::User::Base
     attr_accessor :character
     attr_reader :engine
@@ -28,5 +27,4 @@ module Gamefic
     def prompt text
     end
   end
-
 end

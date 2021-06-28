@@ -1,7 +1,6 @@
 require 'websocket-eventmachine-server'
 
 module Gamefic
-
   class Mud::Engine < Gamefic::Engine::Base
     def post_initialize
       @web_connections = {}
@@ -142,5 +141,4 @@ module Gamefic
       puts "Telnet server started on #{host}:#{port}"
     end
   end
-
 end

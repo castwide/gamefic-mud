@@ -1,7 +1,6 @@
 require 'gamefic/text'
 
 module Gamefic
-  
   class Mud::User::TcpSocket < Mud::User::Base
     def update data
       transmit "\n" + Gamefic::Text::Html::Conversions.html_to_ansi(data)
@@ -15,5 +14,4 @@ module Gamefic
       transmit "\n#{text} "
     end
   end
-
 end

@@ -1,7 +1,5 @@
 module Gamefic
-
   module Mud::User::State
-
     class Base
       attr_reader :user
 
@@ -16,8 +14,6 @@ module Gamefic
       def process message
         puts "User sent #{message} in #{self.class}"
       end
-
     end
-    
   end
 end
