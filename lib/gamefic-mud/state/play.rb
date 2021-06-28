@@ -4,6 +4,7 @@ module Gamefic
       class Play < Base
         def start
           user.plot.introduce user.character
+          user.tell({ messages: user.character.messages })
         end
 
         def process message
