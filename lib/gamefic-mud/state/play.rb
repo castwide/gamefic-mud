@@ -1,6 +1,9 @@
 module Gamefic
   module Mud
     module State
+      # The typical gameplay handler. This state processes client messages as
+      # commands to be executed by the player character.
+      #
       class Play < Base
         def start
           adapter.plot.introduce adapter.character

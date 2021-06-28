@@ -1,9 +1,14 @@
 module Gamefic
   module Mud
     module State
+      # A simple introductory state that creates a character with a name
+      # provided by the user. MUDs in production should implement a more
+      # robust version of authentication, but this is sufficient for testing
+      # and development.
+      #
       class Guest < Base
         def start
-          adapter.send_raw 'Enter your name:'
+          adapter.send_raw 'Enter your name: '
         end
 
         def process message

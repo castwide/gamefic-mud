@@ -23,9 +23,9 @@ module Gamefic
         # @!method send_raw(data)
         #   Send raw data to the client outside of the game.
         #   Normally, game-related data is sent through the character,
-        #   usually via `character#tell` or `character#stream`. This method
+        #   usually via `character#tell` or `character#stream`. `#raw_data`
         #   allows the engine to communicate with the client outside of the
-        #   game, e.g., to display a login prompt.
+        #   game proper, e.g., to display a login prompt.
         #
         #   Adapters should implement this method.
         #
