@@ -36,6 +36,7 @@ module Gamefic
 
         def unbind
           puts "Disconnecting from #{ip_addr}:#{port}"
+          # @todo Right way to remove player from game?
           plot.destroy character unless character.nil?
         end
 
