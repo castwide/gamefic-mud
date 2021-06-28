@@ -70,6 +70,12 @@ module Gamefic
             ws.start Mud::State::Login
             @connections.push ws
           end
+
+          # WebSocket messages are handled here because using `receive_data` in
+          # the adapter raises character encoding errors.
+          ws.onmessage do |msg|
+            ws.state.process msg
+          end
         end
         puts "WebSocket server started on #{host}:#{port}"
       end

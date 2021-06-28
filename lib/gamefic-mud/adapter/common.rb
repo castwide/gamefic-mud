@@ -10,10 +10,6 @@ module Gamefic
           @state = user_state.new(self)
           @state.start
         end
-
-        def receive_data data
-          state.process data
-        end
       end
     end
   end

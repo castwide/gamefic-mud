@@ -10,12 +10,11 @@ module Gamefic
           # Websocket connections are assumed to be rich clients. Send them
           # the entire output hash and let them determine how to render the
           # data.
-          puts output.inspect
           send output.to_json
         end
 
         def send_raw data
-          send data
+          tell({messages: data})
         end
       end
     end

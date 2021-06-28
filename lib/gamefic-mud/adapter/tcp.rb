@@ -40,6 +40,10 @@ module Gamefic
           send_data data
         end
 
+        def receive_data data
+          state.process data
+        end
+
         def unbind
           puts "Disconnecting from #{ip_addr}:#{port}"
           # @todo Right way to remove player from game?
