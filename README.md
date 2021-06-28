@@ -1,13 +1,16 @@
 # Gamefic MUD
 
-A multiplayer engine for Gamefic.
+A multiplayer engine for [Gamefic](https://github.com/castwide/gamefic-sdk).
 
-Features:
+[MUDs](https://en.wikipedia.org/wiki/MUD) are multiplayer real-time text games, named after the original [MUD1](https://en.wikipedia.org/wiki/MUD1) by Roy Trubshaw and Richard Bartle. The acronym originally stood for Multi-User Dungeon in tribute to an early variation of the [Zork](https://en.wikipedia.org/wiki/Zork) text adventure. As other MUDs expanded into different genres and game styles, the acronym was expanded to include Multi-User Dimensions or Multi-User Domains.
+
+Much like the original MUD1 introduced a multiplayer version of Zork, Gamefic MUD makes it possible to develop multiplayer versions of Gamefic projects.
+
+## Features
+
 - Tick-based engine simulates real-time gameplay
 - Support for connections over TCP (text terminals) or WebSockets
 - Engine can easily import most Gamefic projects
-
-This project is still in early development.
 
 ## Installation
 
@@ -43,7 +46,7 @@ To connect to the game, telnet to `localhost:4342`.
 
 For testing and development purposes, this is the easiest way to convert your Gamefic project into multiplayer:
 
-* Add `gamefic-mud` to the project's Gemfile
+* Add `gamefic-mud` to the project's Gemfile and run `bundle install`
 * Create a `server.rb` script in the project's root directory:
 
   ```ruby
