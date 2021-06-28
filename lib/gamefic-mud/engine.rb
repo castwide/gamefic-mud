@@ -30,7 +30,7 @@ module Gamefic
       end
 
       def run
-        # EM.epoll
+        EM.epoll
         EM.run do
           trap("TERM") { stop }
           trap("INT")  { stop }

@@ -3,8 +3,7 @@ module Gamefic
     module State
       class Login < Base
         def start
-          # user.send_data 'Enter your name:'
-          user.send 'Enter your name:'
+          user.send_data 'Enter your name:'
         end
 
         def process message

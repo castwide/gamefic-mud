@@ -16,6 +16,8 @@ module Gamefic
         def tell output
           send output[:messages]
         end
+
+        alias send_data send
       end
     end
   end
