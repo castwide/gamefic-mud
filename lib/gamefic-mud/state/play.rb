@@ -3,12 +3,12 @@ module Gamefic
     module State
       class Play < Base
         def start
-          user.plot.introduce user.character
-          user.update({ messages: user.character.messages })
+          adapter.plot.introduce adapter.character
+          adapter.update({ messages: adapter.character.messages })
         end
 
         def process message
-          user.character.queue.push message unless message == ''
+          adapter.character.queue.push message unless message == ''
         end
       end
     end

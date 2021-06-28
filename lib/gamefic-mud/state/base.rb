@@ -2,10 +2,10 @@ module Gamefic
   module Mud
     module State
       class Base
-        attr_reader :user
+        attr_reader :adapter
 
-        def initialize user
-          @user = user
+        def initialize adapter
+          @adapter = adapter
         end
 
         def start
