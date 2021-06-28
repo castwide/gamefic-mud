@@ -2,12 +2,10 @@ require 'html_to_ansi'
 
 module Gamefic
   module Mud
-    class Engine
-      module TcpAdapter
-        attr_accessor :plot
-        attr_accessor :character
-        attr_reader :state
-        # attr_accessor :user
+    module Adapter
+      module Tcp
+        include Common
+
         attr_reader :ip_addr
         attr_reader :port
 
@@ -48,11 +46,6 @@ module Gamefic
           puts "Disconnecting from #{ip_addr}:#{port}"
           # @todo Right way to remove player from game?
           plot.destroy character unless character.nil?
-        end
-
-        def start user_state
-          @state = user_state.new(self)
-          @state.start
         end
       end
     end

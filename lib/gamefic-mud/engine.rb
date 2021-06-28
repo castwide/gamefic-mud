@@ -1,13 +1,9 @@
 require 'eventmachine'
 require 'em-websocket'
-require 'html_to_ansi'
 
 module Gamefic
   module Mud
     class Engine
-      autoload :TcpAdapter, 'gamefic-mud/engine/tcp_adapter'
-      autoload :WebAdapter, 'gamefic-mud/engine/web_adapter'
-
       attr_reader :plot
 
       def initialize plot
@@ -67,7 +63,7 @@ module Gamefic
       def start_websocket host:, port:
         EM::WebSocket.run(host: host, port: port) do |ws|
           ws.onopen do |_handshake|
-            ws.extend WebAdapter
+            ws.extend Adapter::Websocket
             ws.plot = plot
             ws.start Mud::State::Login
             @connections.push ws
@@ -81,7 +77,7 @@ module Gamefic
       end
 
       def start_tcpsocket host:, port:
-        EventMachine.start_server host, port, TcpAdapter do |conn|
+        EventMachine.start_server host, port, Adapter::Tcp do |conn|
           conn.plot = plot
           conn.start Mud::State::Login
           @connections.push conn
