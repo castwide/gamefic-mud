@@ -4,6 +4,9 @@ module Gamefic
       class Play < Base
         def start
           adapter.plot.introduce adapter.character
+          # Since the game is already running when the player connects, the
+          # plot update flushes messages received in the introduction. We're
+          # working around the problem by sending them here.
           adapter.update({ messages: adapter.character.messages })
         end
 
