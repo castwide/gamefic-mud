@@ -1,7 +1,7 @@
 module Gamefic
   module Mud
     module State
-      class Login < Base
+      class Guest < Base
         def start
           adapter.send_raw 'Enter your name:'
         end

@@ -12,7 +12,7 @@ module Gamefic
 
       # @param plot [Plot] The game plot
       # @param start [Class<State::Base>] The initial state for new connections
-      def initialize plot, start: State::Login
+      def initialize plot, start: State::Guest
         @plot = plot
         @start = start
         @web_connections = {}
