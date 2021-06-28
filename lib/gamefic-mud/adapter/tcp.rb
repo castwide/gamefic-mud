@@ -17,21 +17,7 @@ module Gamefic
         end
 
         def receive_data data
-          # HACK Convert to UTF-8 and close connection on errors
-          conv = ''
-          data.each_byte do |b|
-            c = b.chr.encode('UTF-8')
-            if c.valid_encoding?
-              conv += c
-            else
-              conv += '?'
-            end
-          end
-          conv.strip!
-          state.process conv
-        rescue Encoding::UndefinedConversionError
-          puts 'Throwing away garbage'
-          close_connection
+          state.process data
         end
 
         def tell output

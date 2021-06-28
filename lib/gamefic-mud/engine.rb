@@ -68,10 +68,6 @@ module Gamefic
             ws.start Mud::State::Login
             @connections.push ws
           end
-
-          ws.onmessage do |msg|
-            ws.state.process msg
-          end
         end
         puts "WebSocket server started on #{host}:#{port}"
       end
