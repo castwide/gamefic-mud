@@ -19,8 +19,8 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.1.0'
 
+  s.add_runtime_dependency 'em-websocket', '~> 0.5'
   s.add_runtime_dependency 'eventmachine', '~> 1.2'
   s.add_runtime_dependency 'gamefic'
   s.add_runtime_dependency 'html_to_ansi'
-  s.add_runtime_dependency 'websocket-eventmachine-server', '~> 1.0.1'
 end

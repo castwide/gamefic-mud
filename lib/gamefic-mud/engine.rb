@@ -1,10 +1,12 @@
-require 'websocket-eventmachine-server'
+require 'eventmachine'
+require 'em-websocket'
 require 'html_to_ansi'
 
 module Gamefic
   module Mud
     class Engine
       autoload :TcpAdapter, 'gamefic-mud/engine/tcp_adapter'
+      autoload :WebAdapter, 'gamefic-mud/engine/web_adapter'
 
       attr_reader :plot
 
@@ -49,7 +51,9 @@ module Gamefic
             plot.ready
             @connections.each do |conn|
               next unless conn.character
-              conn.send_data HtmlToAnsi.convert(conn.character.output[:messages]).gsub(/\n/, "\r\n")
+              # conn.send_data HtmlToAnsi.convert(conn.character.output[:messages]).gsub(/\n/, "\r\n")
+              # conn.send HtmlToAnsi.convert(conn.character.output[:messages]).gsub(/\n/, "\r\n")
+              conn.send conn.character.output[:messages]
             end
           end
         end
@@ -63,8 +67,19 @@ module Gamefic
       private
 
       def start_websocket host:, port:
-        # @todo Start the websocket server
-        raise "WebSocket server not implemented"
+        EM::WebSocket.run(host: host, port: port) do |ws|
+          ws.onopen do |_handshake|
+            ws.extend WebAdapter
+            ws.plot = plot
+            ws.start Mud::State::Login
+            @connections.push ws
+          end
+
+          ws.onmessage do |msg|
+            ws.state.process msg
+          end
+        end
+        puts "WebSocket server started on #{host}:#{port}"
       end
 
       def start_tcpsocket host:, port:

@@ -1,36 +1,18 @@
 # @todo Moved from Engine. Make it work
 
-::WebSocket::EventMachine::Server.start(host: host, port: port) do |ws|
+module Gamefic
+  module Mud
+    class Engine
+      module WebAdapter
+        attr_accessor :plot
+        attr_accessor :character
+        attr_reader :state
 
-  ws.onopen do
-    puts "Client connected"
-    user = Gamefic::Mud::User::WebSocket.new(ws, self)
-    user.start Mud::User::State::Login
-    @web_connections[ws] = user
+        def start user_state
+          @state = user_state.new(self)
+          @state.start
+        end
+      end
+    end
   end
-
-  ws.onmessage do |msg, type|
-    @web_connections[ws].process msg
-  end
-
-  ws.onclose do
-    puts "Client disconnected"
-    plot.destroy @web_connections[ws].character unless @web_connections[ws].character.nil?
-    @web_connections.delete ws
-  end
-
-  ws.onerror do |e|
-    puts "Error: #{e}"
-  end
-
-  ws.onping do |msg|
-    puts "Received ping: #{msg}"
-  end
-
-  ws.onpong do |msg|
-    puts "Received pong: #{msg}"
-  end
-
 end
-
-puts "WebSocket server started on #{host}:#{port}"
