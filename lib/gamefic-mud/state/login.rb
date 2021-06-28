@@ -10,8 +10,7 @@ module Gamefic
           character = user.plot.make_player_character
           character.name = message.strip
           user.character = character
-          user.character.tell "Welcome, #{character.name}"
-          user.start Mud::User::State::Play
+          user.start Mud::State::Play
         end
       end
     end

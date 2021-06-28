@@ -3,6 +3,6 @@ require 'gamefic'
 module Gamefic
   module Mud
     autoload :Engine, 'gamefic-mud/engine'
-    autoload :User, 'gamefic-mud/user'
+    autoload :State, 'gamefic-mud/state'
   end
 end

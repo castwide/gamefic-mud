@@ -57,7 +57,7 @@ module Gamefic
       end
 
       def stop
-        puts "Terminating WebSocket Server"
+        puts "Terminating server"
         EventMachine.stop
       end
 
@@ -71,8 +71,7 @@ module Gamefic
       def start_tcpsocket host:, port:
         EventMachine.start_server host, port, TcpAdapter do |conn|
           conn.plot = plot
-          # conn.user = Gamefic::Mud::User::TcpSocket.new(conn, self)
-          conn.start Mud::User::State::Login
+          conn.start Mud::State::Login
           @connections.push conn
         end
 
