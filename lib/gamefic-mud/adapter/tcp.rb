@@ -20,7 +20,7 @@ module Gamefic
           state.process data
         end
 
-        def tell output
+        def update output
           # TCP connections are assumed to be terminal clients. Convert messages and options into
           # an HTML block and convert it to ANSI text.
           text = output[:messages]

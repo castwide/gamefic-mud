@@ -6,7 +6,7 @@ module Gamefic
       module Websocket
         include Common
 
-        def tell output
+        def update output
           # Websocket connections are assumed to be rich clients. Send them
           # the entire output hash and let them determine how to render the
           # data.
@@ -14,7 +14,7 @@ module Gamefic
         end
 
         def send_raw data
-          tell({messages: data})
+          update({messages: data})
         end
       end
     end

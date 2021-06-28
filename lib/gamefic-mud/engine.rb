@@ -49,7 +49,7 @@ module Gamefic
             plot.ready
             @connections.each do |conn|
               next unless conn.character
-              conn.tell conn.character.output
+              conn.update conn.character.output
             end
           end
         end
