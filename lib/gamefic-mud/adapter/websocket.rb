@@ -1,4 +1,4 @@
-# @todo Moved from Engine. Make it work
+require 'json'
 
 module Gamefic
   module Mud
@@ -7,7 +7,11 @@ module Gamefic
         include Common
 
         def tell output
-          send output[:messages]
+          # Websocket connections are assumed to be rich clients. Send them
+          # the entire output hash and let them determine how to render the
+          # data.
+          puts output.inspect
+          send output.to_json
         end
 
         def send_raw data

@@ -21,7 +21,19 @@ module Gamefic
         end
 
         def tell output
-          send_data HtmlToAnsi.convert(output[:messages])
+          # TCP connections are assumed to be terminal clients. Convert messages and options into
+          # an HTML block and convert it to ANSI text.
+          text = output[:messages]
+          unless output[:options].nil?
+            list = '<ol>'
+            state[:options].each do |o|
+              list += "<li>#{o}</li>"
+            end
+            list += "</ol>"
+            text += list
+          end
+          # @todo The line endings should probably be a function of HtmlToAnsi.
+          send_data HtmlToAnsi.convert(text).gsub(/\n/, "\r\n")
         end
 
         def send_raw data

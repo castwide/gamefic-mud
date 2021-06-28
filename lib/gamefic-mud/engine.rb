@@ -1,6 +1,8 @@
 require 'eventmachine'
 require 'em-websocket'
 
+Encoding.default_external = 'UTF-8'
+
 module Gamefic
   module Mud
     class Engine
