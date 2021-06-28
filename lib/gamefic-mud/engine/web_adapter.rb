@@ -12,6 +12,10 @@ module Gamefic
           @state = user_state.new(self)
           @state.start
         end
+
+        def tell output
+          send output[:messages]
+        end
       end
     end
   end

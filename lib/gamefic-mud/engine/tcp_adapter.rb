@@ -1,3 +1,5 @@
+require 'html_to_ansi'
+
 module Gamefic
   module Mud
     class Engine
@@ -32,6 +34,10 @@ module Gamefic
         rescue Encoding::UndefinedConversionError
           puts 'Throwing away garbage'
           close_connection
+        end
+
+        def tell output
+          send_data HtmlToAnsi.convert(output[:messages])
         end
 
         def unbind
