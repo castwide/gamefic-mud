@@ -1,3 +1,5 @@
+require 'gamefic'
+
 module Gamefic
   module Mud
     autoload :Engine, 'gamefic-mud/engine'
