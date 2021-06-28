@@ -81,6 +81,12 @@ module Gamefic
         end
       end
 
+      def self.start plot, **options
+        engine = new(plot, **options)
+        yield(engine) if block_given?
+        engine.run
+      end
+
       # Stop the engine.
       #
       # @return [void]
