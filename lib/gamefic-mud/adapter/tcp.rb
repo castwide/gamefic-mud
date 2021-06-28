@@ -1,12 +1,18 @@
 require 'html_to_ansi'
+require 'socket'
 
 module Gamefic
   module Mud
     module Adapter
+      # The TCP client adapter module.
+      #
       module Tcp
         include Common
 
+        # @return [String]
         attr_reader :ip_addr
+
+        # @return [Integer]
         attr_reader :port
 
         def post_init

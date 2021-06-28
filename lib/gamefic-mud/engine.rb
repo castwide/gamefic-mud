@@ -3,28 +3,54 @@ require 'em-websocket'
 
 module Gamefic
   module Mud
+    # The MUD server engine. Responsible for handling client connections and
+    # updating the game state.
+    #
     class Engine
+      # @return [Plot]
       attr_reader :plot
 
-      def initialize plot
+      # @param plot [Plot] The game plot
+      # @param start [Class<State::Base>] The initial state for new connections
+      def initialize plot, start: State::Login
         @plot = plot
+        @start = start
         @web_connections = {}
         @accepts = []
         @connections = []
       end
 
+      # Tell the engine to run a TCP or WebSocket server.
+      #
+      # @param type [Symbol] :tcpsocket or :websocket
+      # @param host [String] The host name
+      # @param port [Integer] The port number
+      # @return [void]
       def will_accept type: :tcpsocket, host: '0.0.0.0', port: 4342
         @accepts.push({ type: type, host: host, port: port })
       end
 
+      # Tell the engine to run a TCP server.
+      #
+      # @param host [String] The host name
+      # @param port [Integer] The port number
+      # @return [void]
       def will_accept_tcpsocket host: '0.0.0.0', port: 4342
         will_accept type: :tcpsocket, host: host, port: port
       end
 
+      # Tell the engine to run a WebSocket server.
+      #
+      # @param host [String] The host name
+      # @param port [Integer] The port number
+      # @return [void]
       def will_accept_websocket host: '0.0.0.0', port: 4343
         will_accept type: :websocket, host: host, port: port
       end
 
+      # Start the engine.
+      #
+      # @return [void]
       def run
         EM.epoll
         EM.run do
@@ -53,6 +79,9 @@ module Gamefic
         end
       end
 
+      # Stop the engine.
+      #
+      # @return [void]
       def stop
         puts "Terminating server"
         EventMachine.stop
@@ -65,7 +94,7 @@ module Gamefic
           ws.onopen do |_handshake|
             ws.extend Adapter::Websocket
             ws.plot = plot
-            ws.start Mud::State::Login
+            ws.start @start
             @connections.push ws
           end
 
@@ -81,7 +110,7 @@ module Gamefic
       def start_tcpsocket host:, port:
         EventMachine.start_server host, port, Adapter::Tcp do |conn|
           conn.plot = plot
-          conn.start Mud::State::Login
+          conn.start @start
           @connections.push conn
         end
 
