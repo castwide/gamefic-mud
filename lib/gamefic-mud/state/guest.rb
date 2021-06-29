@@ -12,10 +12,15 @@ module Gamefic
         end
 
         def process message
-          character = adapter.plot.make_player_character
-          character.name = message.strip
-          adapter.character = character
-          adapter.start Mud::State::Play
+          if message.strip.empty?
+            adapter.send_raw "Blank names are not allowed.\r\n"
+            start
+          else
+            character = adapter.plot.make_player_character
+            character.name = message.strip
+            adapter.character = character
+            adapter.start Mud::State::Play
+          end
         end
       end
     end
