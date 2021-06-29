@@ -109,7 +109,7 @@ module Gamefic
           # WebSocket messages are handled here because using `receive_data` in
           # the adapter raises character encoding errors.
           ws.onmessage do |msg|
-            ws.state.process msg
+            ws.state.process msg.to_s
           end
         end
         puts "WebSocket server started on #{host}:#{port}"
