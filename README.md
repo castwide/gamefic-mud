@@ -129,3 +129,93 @@ end
 # Change the tick interval (default is 1 second)
 Gamefic::Mud::Engine.start(plot, interval: 3)
 ```
+
+## Connection States
+
+The MUD engine uses states to determine how to process user input. There are two states included in the library:
+
+* `Gamefic::Mud::State::Guest`: A simple introductory state that prompts the user for a name and creates a character.
+* `Gamefic::Mud::State::Play`: The gameplay state that passes user input to the player character as a command to be executed.
+
+Most games can use the `Play` state for live gameplay. In production, however, you'll probably want a more robust form of authentication than `Guest` provides. You can implement your own authentication by subclassing `Gamefic::Mud::State::Base`.
+
+Here's a partial example of a custom login state:
+
+```ruby
+class MyLogin < Gamefic::Mud::State::Base
+  def start
+    # Send a prompt to the user
+    adapter.send_raw 'Enter your name: '
+  end
+
+  def process message
+    if valid?(message)
+      # Connect to the game and start playing
+      character.name = message
+      adapter.character = character
+      adapter.start Mud::State::Play
+    else
+      adapter.send_raw "That is not a valid name.\r\n"
+      # Repeat the name prompt
+      start
+    end
+  end
+
+  private
+
+  def valid? name
+    ['Dave', 'Lisa'].include?(name) # Replace this with your authentication procedure
+  end
+end
+```
+
+To use your custom state instead of the `Guest` state:
+
+```ruby
+Gamefic::Mud::Engine.start(plot, start: MyLogin)
+```
+
+Here's an example that requires both a name and a password:
+
+```ruby
+class InputUsername < Gamefic::Mud::State::Base
+  def start
+    adapter.send_raw 'Enter your name: '
+  end
+
+  def process message
+    if message.strip.empty?
+      start
+    else
+      adapter[:username] = message.strip
+      adapter.start InputPassword
+    end
+  end
+end
+
+class InputPassword < Gamefic::Mud::State::Base
+  def start
+    adapter.send_raw 'Enter your password: '
+  end
+
+  def process message
+    if authenticated?(message)
+      character = adapter.plot.make_player_character
+      character.name = adapter[:username]
+      adapter.character = character
+      adapter.start Gamefic::Mud::State::Play
+    else
+      adapter.send_raw "Invalid login.\r\n"
+      adapter.start InputUsername
+    end
+  end
+
+  private
+
+  def authenticated?(password)
+    password == 'supersecret' # Replace this with your authentication procedure
+  end
+end
+
+Gamefic::Mud::Engine.start(plot, start: InputUsername)
+```
