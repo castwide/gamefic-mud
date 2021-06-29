@@ -8,7 +8,7 @@ Much like the original MUD1 introduced a multiplayer version of Zork, Gamefic MU
 
 ## Features
 
-- Tick-based engine simulates real-time gameplay
+- Tick-based engine enables real-time gameplay
 - Support for connections over TCP (text terminals) or WebSockets
 - Engine can easily import most Gamefic projects
 
@@ -74,7 +74,7 @@ end
 
 The default websocket endpoint is `ws://localhost:4343`.
 
-## WebSocket Client Example
+### WebSocket Client Example
 
 This is a barebones example of a web page that can connect to Gamefic MUDs over WebSockets:
 
@@ -117,7 +117,11 @@ This is a barebones example of a web page that can connect to Gamefic MUDs over 
 </html>
 ```
 
-## Other Configuration Options
+### Building Rich WebSocket Clients
+
+One benefit of building a custom WebSocket client is that you can integrate graphics and other media. (Concrete examples are forthcoming.)
+
+## Configuration Options
 
 ```ruby
 # Change the host and port
