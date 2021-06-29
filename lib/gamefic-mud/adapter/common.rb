@@ -20,6 +20,18 @@ module Gamefic
           @state.start
         end
 
+        def session
+          @session ||= {}
+        end
+
+        def [] key
+          session[key]
+        end
+
+        def []= key, value
+          session[key] = value
+        end
+
         # @!method send_raw(data)
         #   Send raw data to the client outside of the game.
         #   Normally, game-related data is sent through the character,

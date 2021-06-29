@@ -47,7 +47,7 @@ module Gamefic
         end
 
         def receive_data data
-          state.process data.to_s
+          state.process data.to_s.strip
         end
 
         def unbind
