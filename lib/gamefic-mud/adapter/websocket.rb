@@ -20,6 +20,8 @@ module Gamefic
         # @param data [String]
         # @return [void]
         def send_raw data
+          # Convert raw text to a hash with a `messages` key so the WebSocket
+          # client can rely on a single standard for incoming data.
           update({messages: data})
         end
       end

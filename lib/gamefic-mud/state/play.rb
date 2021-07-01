@@ -2,7 +2,7 @@ module Gamefic
   module Mud
     module State
       # The typical gameplay handler. This state processes client messages as
-      # commands to be executed by the player character.
+      # commands to be executed by the player's character.
       #
       class Play < Base
         def start
