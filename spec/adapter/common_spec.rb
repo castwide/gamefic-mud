@@ -1,12 +1,12 @@
 describe Gamefic::Mud::Adapter::Common do
-  let(:object) do
+  let(:adapter) do
     obj = Object.new
     obj.extend Gamefic::Mud::Adapter::Common
     obj
   end
 
   it 'starts a state' do
-    object.start Gamefic::Mud::State::Base
-    expect(object.state).to be_a(Gamefic::Mud::State::Base)
+    adapter.start Gamefic::Mud::State::Base
+    expect(adapter.state).to be_a(Gamefic::Mud::State::Base)
   end
 end
