@@ -67,8 +67,8 @@ For testing and development purposes, this is the easiest way to convert your Ga
 You can tell the engine to run on WebSockets with the `will_accept_websocket` method:
 
 ```ruby
-Gamefic::Mud::Engine.start(plot) do
-engine.will_accept_websocket
+Gamefic::Mud::Engine.start(plot) do |engine|
+  engine.will_accept_websocket
 end
 ```
 
