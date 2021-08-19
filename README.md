@@ -84,35 +84,35 @@ This is a barebones example of a web page that can connect to Gamefic MUDs over 
   <head>
     <script>
       function init() {
-        function output(data) {
-		  var json = JSON.parse(data);
+        var output = function(data) {
+          var json = JSON.parse(data);
           var element = document.getElementById("output");
-		  element.innerHTML += json.messages;
+          element.innerHTML += json.messages;
         }
         var Socket = "MozWebSocket" in window ? MozWebSocket : WebSocket;
         var ws = new Socket("ws://localhost:4343");
-		ws.onmessage = function(evt) { output(evt.data); }
+        ws.onmessage = function(evt) { output(evt.data); }
         ws.onclose = function(event) {
           console.log("Closed WebSocket - code: " + event.code + ", reason: " + event.reason + ", wasClean: " + event.wasClean);
         };
         ws.onopen = function() {
           console.log("Opened WebSocket");
         };
-		var controls = document.getElementById("controls");
-		controls.addEventListener('submit', (evt) => {
-			evt.preventDefault();
-			var command = document.getElementById("command");
-			ws.send(command.value);
-			command.value = '';
-		});
+        var controls = document.getElementById("controls");
+        controls.addEventListener('submit', (evt) => {
+          evt.preventDefault();
+          var command = document.getElementById("command");
+          ws.send(command.value);
+          command.value = '';
+        });
       };
     </script>
   </head>
   <body onload="init();">
     <div id="output"></div>
-	<form id="controls">
-		<input type="text" name="command" id="command" />
-	</form>
+    <form id="controls">
+      <input type="text" name="command" id="command" />
+    </form>
   </body>
 </html>
 ```
