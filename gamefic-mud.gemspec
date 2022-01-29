@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'gamefic', '~> 2.1'
   s.add_runtime_dependency 'html_to_ansi', '~> 0.1'
 
+  s.add_development_dependency 'net-telnet', '~> 0.2'
   s.add_development_dependency 'rspec', '~> 3.5', '>= 3.5.0'
   s.add_development_dependency 'simplecov', '~> 0.14'
 end
