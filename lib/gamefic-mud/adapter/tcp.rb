@@ -22,17 +22,13 @@ module Gamefic
           puts "Connection received from #{ip}:#{port}"
         end
 
-        def receive_data data
-          state.process data
-        end
-
         def update output
           # TCP connections are assumed to be terminal clients. Convert messages and options into
           # an HTML block and convert it to ANSI text.
-          text = output[:messages]
+          text = output[:messages].to_s
           unless output[:options].nil?
             list = '<ol>'
-            state[:options].each do |o|
+            output[:options].each do |o|
               list += "<li>#{o}</li>"
             end
             list += "</ol>"
