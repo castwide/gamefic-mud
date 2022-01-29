@@ -21,6 +21,7 @@ describe Gamefic::Mud::Engine do
     Thread.new { engine.run }
     expect {
       Net::Telnet.new('Host' => 'localhost', 'Port' => 4342)
+      sleep 2 # Wait for the interval to run
     }.not_to raise_error
     engine.stop
   end
